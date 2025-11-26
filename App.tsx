@@ -112,8 +112,9 @@ const App: React.FC = () => {
       </div>
       
       {/* Layer 5: Festive Foreground Frame (Bottom) - Hidden on Confirmation Screen */}
+      {/* Customization Screen: Lower Z-Index so buttons appear above the frame */}
       {isFestiveMode && currentScreen !== Screen.Confirmation && (
-        <div className="fixed bottom-0 left-0 right-0 z-[60] pointer-events-none flex justify-center items-end">
+        <div className={`fixed bottom-0 left-0 right-0 pointer-events-none flex justify-center items-end ${currentScreen === Screen.Customization ? 'z-[5]' : 'z-[60]'}`}>
           {/* Updated: Increased width to 160% on mobile to scale up the frame details */}
           <img 
             src="https://i.postimg.cc/W3qL6xBC/Christmas_(1).png" 

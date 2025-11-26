@@ -19,6 +19,7 @@ const CustomizationScreen: React.FC = () => {
     getSizeTranslation,
     selectedLanguage, 
     addToCart,
+    removeFromCart, // Added removeFromCart
     isFestiveMode
   } = useAppContext();
 
@@ -41,7 +42,8 @@ const CustomizationScreen: React.FC = () => {
   useEffect(() => {
     // HESITATION LOGIC:
     // Only show if group is loaded and guide hasn't been seen AND user hesitates for 5 seconds
-    if (group) {
+    // AND options sheet is NOT open
+    if (group && !isOptionsSheetOpen) {
         const hasSeen = localStorage.getItem('hasSeenCustomizationGuide_v4');
         if (!hasSeen) {
             // Clear existing
@@ -52,12 +54,16 @@ const CustomizationScreen: React.FC = () => {
                 setShowOnboarding(true);
             }, 5000); 
         }
+    } else {
+        // If options sheet opens, cancel timer and hide onboarding
+        cancelHesitationTimer();
+        setShowOnboarding(false);
     }
     
     return () => {
         if (hesitationTimerRef.current) clearTimeout(hesitationTimerRef.current);
     }
-  }, [group]);
+  }, [group, isOptionsSheetOpen]); // Added isOptionsSheetOpen dependency
 
   const handleOnboardingComplete = () => {
       setShowOnboarding(false);
@@ -226,7 +232,12 @@ const CustomizationScreen: React.FC = () => {
     navigateTo(Screen.Confirmation);
   };
 
+  // FIX: Remove the item from cart if user goes back to edit to prevent duplicates
   const handleEditFromModal = () => {
+    if (lastAddedItem) {
+        removeFromCart(lastAddedItem.id);
+        setLastAddedItem(null);
+    }
     setIsPostAddModalOpen(false);
     setIsSubmitting(false);
   };
@@ -286,7 +297,7 @@ const CustomizationScreen: React.FC = () => {
 
   return (
     <>
-      {showOnboarding && (
+      {showOnboarding && !isOptionsSheetOpen && (
         <OnboardingGuide steps={custSteps} onComplete={handleOnboardingComplete} />
       )}
       
@@ -378,7 +389,7 @@ const CustomizationScreen: React.FC = () => {
             )}
           </div>
           
-          <div className="space-y-6 px-2 pb-6 relative z-10">
+          <div className={`space-y-6 px-2 relative z-10 ${isFestiveMode ? 'pb-32' : 'pb-6'}`}>
               <div className="glass-panel p-4">
                   <p className="text-center text-sm text-[var(--bdl-text-secondary)] mb-4">
                     {getTranslation('selectDrinkTypePrompt')}
@@ -530,8 +541,8 @@ const CustomizationScreen: React.FC = () => {
               )}
             </div>
 
-            {/* footer - significantly increased padding-bottom when festive mode to clear bottom frame */}
-            <div className={`px-4 py-3 border-t border-white/20 ${isFestiveMode ? 'pb-52' : 'pb-10'}`}>
+            {/* footer - removed excessive padding that was pushing buttons up */}
+            <div className={`px-4 py-3 border-t border-white/20 pb-10`}>
               {selectedVariant && (
                   <div className="flex items-center justify-center gap-5 mb-4">
                       <button 

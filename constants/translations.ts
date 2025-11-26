@@ -162,7 +162,7 @@ export const TRANSLATIONS: Translations = {
   drinks: { en: 'Drinks', th: 'รายการ', jp: 'ドリンク', zh: '饮品', kr: '음료', my: 'Minuman', ru: 'Напитки', fr: 'Boissons', vn: 'Đồ uống', in: 'पेय' },
   fromPrice: { en: 'From', th: 'เริ่ม', jp: 'から', zh: '起', kr: '부터', my: 'Dari', ru: 'От', fr: 'À partir de', vn: 'Từ', in: 'से' },
   priceDisclaimer: { 
-    th: '*ราคาอาจแตกต่างกันในแต่ละสาขาหรือตามโปรโมชั่น กรุณาตรวจสอบราคาทอีกครั้ง ณ จุดชำระเงิน',
+    th: '*ราคาอาจแตกต่างกันในแต่ละสาขาหรือตามโปรโมชั่น กรุณาตรวจสอบราคาอีกครั้ง ณ จุดชำระเงิน',
     en: '*Price may vary by location or promotion. Please verify the price again at the point of payment.',
     jp: '※価格は店舗やプロモーションによって異なる場合があります。お会計時に再度価格をご確認ください。',
     zh: '*价格可能因地点或促销活动而异。请在付款时再次确认价格。',
@@ -216,18 +216,62 @@ export const TRANSLATIONS: Translations = {
     in: 'आज कोई विशेष प्रचार नहीं है, लेकिन हमारे क्लासिक्स हमेशा एक बढ़िया विकल्प होते हैं!' 
   },
   noProductsMatchFiltersSuggestion: { en: 'No drinks match your filters. Try adjusting your selection!', th: 'ไม่พบเครื่องดื่มที่ตรงกับตัวกรองของคุณ ลองปรับการเลือกดูสิ!', jp: 'フィルターに合うドリンクが見つかりません。選択を調整してみてください！', zh: '沒有符合您筛选条件的饮品。请尝试调整您的选择！', kr: '필터에 맞는 음료가 없습니다. 선택을 조정해 보세요!', my: 'Tiada minuman yang sepadan dengan penapis anda. Cuba laraskan pilihan anda!', ru: 'Нет напитков, соответствующих вашим фильтрам. Попробуйте изменить свой выбор!', fr: 'Aucune boisson ne correspond à vos filtres. Essayez d\'ajuster votre sélection !', vn: 'Không có đồ uống nào phù hợp với bộ lọc của bạn. Hãy thử điều chỉnh lựa chọn của bạn!', in: 'आपके फ़िल्टर से कोई पेय मेल नहीं खाता। अपनी પસંદગી को समायोजित करने का प्रयास करें!' },
-  loadMore: { en: 'Load More', th: 'โหลดเพิ่ม', jp: 'もっと読み込む', zh: '加载更多', kr: '더 보기', my: 'Muat Lagi', ru: 'Загрузить еще', fr: 'Charger plus', vn: 'Tải thêm', in: ' और लोड करें' },
+  loadMore: { en: 'Load More', th: 'โหลดเพิ่ม', jp: 'もっと読み込む', zh: '加载更多', kr: '더 보기', my: 'Muat Lagi', ru: 'Загрузить еще', fr: 'Charger plus', vn: 'Tải thêm', in: 'और लोड करें' },
   noMoreProducts: { en: 'You\'ve reached the end of the menu!', th: 'คุณดูครบทุกเมนูแล้ว!', jp: 'メニューの最後まで到達しました！', zh: '您已浏览完所有菜单！', kr: '메뉴의 끝까지 보셨습니다!', my: 'Anda telah sampai ke penghujung menu!', ru: 'Вы дошли до конца меню!', fr: 'Vous avez atteint la fin du menu !', vn: 'Bạn đã xem hết thực đơn!', in: 'आप मेनू के अंत तक पहुँच गए हैं!' },
   "7-eleven signature": { en: "7-Eleven Signature", th: "ซิกเนเจอร์ 7-Eleven", jp: "セブン-イレブン シグネチャー", zh: "7-Eleven 经典", kr: "세븐일레븐 시그니처", my: "Signature 7-Eleven", ru: "Фирменное 7-Eleven", fr: "Signature 7-Eleven", vn: "Đặc trưng 7-Eleven", in: "7-इलेवन सिग्नेチャー" },
-  "signature from thailand": { en: "Signature from Thailand", th: "ซิกเนเจอร์จากไทย", jp: "タイのシグネチャー", zh: "泰国经典", kr: "태국 시그니チャー", my: "Signature dari Thailand", ru: "Фирменное из Таиланда", fr: "Signature de Thaïlande", vn: "Đặc trưng từ Thái Lan", in: "थाईलैंड से सिग्नेチャー" },
+  "signature from thailand": { en: "Signature from Thailand", th: "ซิกเนเจอร์จากไทย", jp: "タイのシグネチャー", zh: "泰国经典", kr: "태국 시그니처", my: "Signature dari Thailand", ru: "Фирменное из Таиланда", fr: "Signature de Thaïlande", vn: "Đặc trưng từ Thái Lan", in: "थाईलैंड से सिग्नेチャー" },
   "signature": { en: "Signature", th: "ซิกเนเจอร์", jp: "シグネチャー", zh: "经典", kr: "시그니처", my: "Signature", ru: "Фирменное", fr: "Signature", vn: "Đặc trưng", in: "सिग्नेचर" },
   outOfStock: { en: "Out of Stock", th: "สินค้าหมด", jp: "品切れ", zh: "已售罄", kr: "품절", my: "Stok Habis", ru: "Нет в наличии", fr: "En rupture de stock", vn: "Hết hàng", in: "स्टॉक में नहीं है" },
   
-  // --- Onboarding Guide ---
-  onboardingSwipeCategories: { th: 'เลื่อนเพื่อดูหมวดหมู่เพิ่มเติม', en: 'Swipe for more categories', jp: 'スワイプしてカテゴリを表示', zh: '滑动查看更多类别' },
-  onboardingTapProduct: { th: 'แตะที่เมนูเพื่อสั่ง', en: 'Tap to select this item', jp: 'タップして選択', zh: '点击选择' },
-  onboardingSelectType: { th: 'เลือกรูปแบบเครื่องดื่ม', en: 'Select drink type', jp: '飲み方の種類を選択', zh: '选择饮品类型' },
-  onboardingAddToCart: { th: 'กดปุ่มนี้เพื่อเพิ่มลงตะกร้า', en: 'Tap here to add to order', jp: 'カートに追加するにはここをタップ', zh: '点击此处加入订单' },
+  // --- Onboarding Guide (Multi-language) ---
+  onboardingSwipeCategories: {
+    th: 'เลื่อนเพื่อดูหมวดหมู่เพิ่มเติม',
+    en: 'Swipe for more categories',
+    jp: 'スワイプしてカテゴリを表示',
+    zh: '滑动查看更多类别',
+    kr: '카테고리를 스와이프하여 더 보기',
+    my: 'Leret untuk kategori lain',
+    ru: 'Проведите для просмотра категорий',
+    fr: 'Balayez pour plus de catégories',
+    vn: 'Vuốt để xem thêm danh mục',
+    in: 'अधिक श्रेणियों के लिए स्वाइप करें'
+  },
+  onboardingTapProduct: {
+    th: 'แตะที่เมนูเพื่อสั่ง',
+    en: 'Tap to select this item',
+    jp: 'タップして選択',
+    zh: '点击选择',
+    kr: '항목을 선택하려면 탭하세요',
+    my: 'Ketik untuk memilih',
+    ru: 'Нажмите, чтобы выбрать',
+    fr: 'Appuyez pour sélectionner',
+    vn: 'Chạm để chọn món',
+    in: 'चुनने के लिए टैप करें'
+  },
+  onboardingSelectType: {
+    th: 'เลือกรูปแบบเครื่องดื่ม',
+    en: 'Select drink type',
+    jp: '飲み方の種類を選択',
+    zh: '选择饮品类型',
+    kr: '음료 종류 선택',
+    my: 'Pilih jenis minuman',
+    ru: 'Выберите тип напитка',
+    fr: 'Choisissez le type de boisson',
+    vn: 'Chọn loại đồ uống',
+    in: 'पेय का प्रकार चुनें'
+  },
+  onboardingAddToCart: {
+    th: 'กดปุ่มนี้เพื่อเพิ่มลงในออเดอร์',
+    en: 'Tap here to add to order',
+    jp: 'カートに追加するにはここをタップ',
+    zh: '点击此处加入订单',
+    kr: '주문에 추가하려면 탭하세요',
+    my: 'Ketik untuk tambah ke pesanan',
+    ru: 'Нажмите, чтобы добавить в заказ',
+    fr: 'Appuyez pour ajouter à la commande',
+    vn: 'Chạm để thêm vào đơn hàng',
+    in: 'ऑर्डर में जोड़ने के लिए टैप करें'
+  },
 
   // --- Customization Screen ---
   backButton: { en: 'Back', th: 'กลับ', jp: '戻る', zh: '返回', kr: '뒤로', my: 'Kembali', ru: 'Назад', fr: 'Retour', vn: 'Quay lại', in: 'वापस' },
@@ -360,7 +404,7 @@ export const TRANSLATIONS: Translations = {
     kr: '사이즈, 당도, 추가 옵션을 선택하여 음료를 맞춤 설정한 후 주문에 추가하세요.',
     my: 'Peribadikan minuman anda dengan memilih saiz, tahap kemanisan, dan sebarang tambahan, kemudian tambahkannya ke pesanan anda.',
     ru: 'Настройте свой напиток, выбрав размер, уровень сладости и любые добавки, затем добавьте его в свой заказ.',
-    fr: 'Personnalisez votre boisson en sélectionnant la taille, le niveau de sucre et les éventuels suppléents, puis ajoutez-la à votre commande.',
+    fr: 'Personnalisez votre boisson en sélectionnant la taille, le niveau de sucre et les éventuels suppléments, puis ajoutez-la à votre commande.',
     vn: 'Tùy chỉnh đồ uống của bạn bằng cách chọn kích cỡ, độ ngọt và bất kỳ món thêm nào, sau đó thêm nó vào đơn hàng của bạn.',
     in: 'आकार, मिठास स्तर, और कोई भी ऐड-ऑन चुनकर अपने पेय को अनुकूलित करें, फिर इसे अपने ऑर्डर में जोड़ें।'
   },
@@ -385,7 +429,7 @@ export const TRANSLATIONS: Translations = {
   ratingModalFeedbackPlaceholder: { en: 'What can we improve?', th: 'มีอะไรให้เราปรับปรุงบ้าง?', jp: '改善できる点は何ですか？', zh: '我们有什么可以改进的？', kr: '개선할 점이 무엇인가요?', my: 'Apa yang boleh kami perbaiki?', ru: 'Что мы можем улучшить?', fr: 'Que pouvons-nous améliorer ?', vn: 'Chúng tôi có thể cải thiện điều gì?', in: 'हम क्या सुधार सकते हैं?' },
   ratingModalSend: { en: 'Send Feedback', th: 'ส่งความคิดเห็น', jp: 'フィードバックを送信', zh: '发送反馈', kr: '피ード백 보내기', my: 'Hantar Maklum Balas', ru: 'Отправить отзыв', fr: 'Envoyer un commentaire', vn: 'Gửi phản hồi', in: 'प्रतिक्रिया भेजें' },
   ratingModalSkip: { en: 'Skip', th: 'ข้าม', jp: 'スキップ', zh: '跳过', kr: '건너뛰기', my: 'Langkau', ru: 'Пропустить', fr: 'Passer', vn: 'Bỏ qua', in: 'छोड़ें' },
-  orderConfirmationTitle: { en: 'Confirm Your Drink', th: 'ยืนยืนเครื่องดื่ม', jp: 'ドリンクを確認', zh: '确认您的饮品', kr: '음료 확인', my: 'Sahkan Minuman Anda', ru: 'Подтвердите ваш напиток', fr: 'Confirmez votre boisson', vn: 'Xác nhận đồ uống của bạn', in: 'अपने पेय की पुष्टि करें' },
+  orderConfirmationTitle: { en: 'Confirm Your Drink', th: 'ยืนยันเครื่องดื่ม', jp: 'ドリンクを確認', zh: '确认您的饮品', kr: '음료 확인', my: 'Sahkan Minuman Anda', ru: 'Подтвердите ваш напиток', fr: 'Confirmez votre boisson', vn: 'Xác nhận đồ uống của bạn', in: 'अपने पेय की पुष्टि करें' },
   orderConfirmationReview: { en: 'Please review your selection below.', th: 'กรุณาตรวจสอบรายการของคุณ', jp: '以下の選択内容をご確認ください。', zh: '请检查您下面的选择。', kr: '아래 선택 사항을 검토하십시오.', my: 'Sila semak pilihan anda di bawah.', ru: 'Пожалуйста, проверьте ваш выбор ниже.', fr: 'Veuillez vérifier votre sélection ci-dessous.', vn: 'Vui lòng xem lại lựa chọn của bạn bên dưới.', in: 'कृपया नीचे अपने चयन की समीक्षा करें।' },
   backToEditButton: { en: 'Edit', th: 'แก้ไข', jp: '編集', zh: '编辑', kr: '수정', my: 'Sunting', ru: 'Изменить', fr: 'Modifier', vn: 'Chỉnh sửa', in: 'संपादित करें' },
   confirmAndGetQRButton: { en: 'View Order', th: 'ตรวจสอบรายการ', jp: '注文を表示', zh: '查看订单', kr: '주문 보기', my: 'Lihat Pesanan', ru: 'Посмотреть заказ', fr: 'Voir la commande', vn: 'Xem đơn hàng', in: 'ऑर्डर देखें' },

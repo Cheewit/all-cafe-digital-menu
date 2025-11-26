@@ -133,11 +133,10 @@ const MenuScreen: React.FC = () => {
     };
   }, [isFestiveMode, currentScreen]);
   
-  // Listener to CANCEL the guide if user interacts with the filter bar
+  // Listener to CANCEL the guide if user interacts with the filter bar OR the main window scroll
   useEffect(() => {
       const filterBar = filterBarRef.current;
-      if (!filterBar) return;
-
+      
       const handleUserInteraction = () => {
           // If user scrolls or clicks, they are not confused. Cancel timer.
           if (hesitationTimerRef.current) {
@@ -146,9 +145,18 @@ const MenuScreen: React.FC = () => {
           }
       };
 
-      filterBar.addEventListener('scroll', handleUserInteraction);
+      if (filterBar) {
+          filterBar.addEventListener('scroll', handleUserInteraction);
+      }
+      
+      // Also listen for main window scroll, as user might scroll down the products list
+      window.addEventListener('scroll', handleUserInteraction);
+
       return () => {
-          filterBar.removeEventListener('scroll', handleUserInteraction);
+          if (filterBar) {
+              filterBar.removeEventListener('scroll', handleUserInteraction);
+          }
+          window.removeEventListener('scroll', handleUserInteraction);
       };
   }, []);
   
