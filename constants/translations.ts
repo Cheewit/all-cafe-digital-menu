@@ -272,6 +272,18 @@ export const TRANSLATIONS: Translations = {
     vn: 'Chạm để thêm vào đơn hàng',
     in: 'ऑर्डर में जोड़ने के लिए टैप करें'
   },
+  tapAnywhereToContinue: {
+    th: 'แตะที่ไหนก็ได้เพื่อไปต่อ',
+    en: 'Tap anywhere to continue',
+    jp: '続けるには画面をタップ',
+    zh: '点击任意位置继续',
+    kr: '계속하려면 아무 곳이나 탭하세요',
+    my: 'Ketik di mana-mana untuk teruskan',
+    ru: 'Нажмите в любом месте, чтобы продолжить',
+    fr: 'Appuyez n\'importe où pour continuer',
+    vn: 'Chạm bất kỳ đâu để tiếp tục',
+    in: 'जारी रखने के लिए कहीं भी टैप करें'
+  },
 
   // --- Customization Screen ---
   backButton: { en: 'Back', th: 'กลับ', jp: '戻る', zh: '返回', kr: '뒤로', my: 'Kembali', ru: 'Назад', fr: 'Retour', vn: 'Quay lại', in: 'वापस' },

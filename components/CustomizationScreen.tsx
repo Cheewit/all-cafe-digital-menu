@@ -436,15 +436,15 @@ const CustomizationScreen: React.FC = () => {
                         border-t border-white/30 shadow-[0_-8px_40px_-5px_rgba(0,0,0,.35)]
                         transition-transform duration-300 ease-out
                         ${isOptionsSheetOpen ? 'translate-y-0' : 'translate-y-full'}
-                        rounded-t-2xl`}
+                        rounded-t-2xl flex flex-col max-h-[90dvh]`}
           >
             {/* handle */}
-            <div className="flex justify-center py-2 cursor-grab" onClick={() => setOptionsSheetOpen(false)}>
+            <div className="flex justify-center py-2 cursor-grab flex-shrink-0" onClick={() => setOptionsSheetOpen(false)}>
               <div className="h-1.5 w-12 bg-neutral-400/40 rounded-full" />
             </div>
 
             {/* content */}
-            <div className="px-4 pb-4 space-y-6 max-h-[65vh] overflow-y-auto">
+            <div className="px-4 pb-4 space-y-6 overflow-y-auto flex-1 min-h-0">
               {selectedType && variantsByType[selectedType] && (
                   <div>
                       <label className={`block font-semibold mb-2 ${headerFontClass}`}>{getTranslation('sizeLabel')}</label>
@@ -541,8 +541,8 @@ const CustomizationScreen: React.FC = () => {
               )}
             </div>
 
-            {/* footer - removed excessive padding that was pushing buttons up */}
-            <div className={`px-4 py-3 border-t border-white/20 pb-10`}>
+            {/* footer - safe area padding added */}
+            <div className={`px-4 pt-3 border-t border-white/20 flex-shrink-0 pb-[calc(env(safe-area-inset-bottom,30px)+${isFestiveMode ? '2.5rem' : '1.5rem'})]`}>
               {selectedVariant && (
                   <div className="flex items-center justify-center gap-5 mb-4">
                       <button 
