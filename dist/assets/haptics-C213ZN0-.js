@@ -1,1 +1,0 @@
-const i=()=>{if(typeof window<"u"&&"vibrate"in navigator)try{navigator.vibrate(50)}catch(a){console.warn("Haptic feedback (light) failed.",a)}},t=()=>{if(typeof window<"u"&&"vibrate"in navigator)try{navigator.vibrate([100,30,100])}catch(a){console.warn("Haptic feedback (success) failed.",a)}};export{t as a,i as t};
