@@ -1,37 +1,30 @@
 {
-  "name": "baristai-eyes",
-  "version": "1.0.0",
+  "name": "barista-i-os",
   "private": true,
+  "version": "4.3.0",
   "type": "module",
-  "description": "BaristA:i Eyes: A dynamic, real-time monitoring system visualizing live order data from sources like Google Sheets for clients such as ALL café. It features key performance indicators, charts, and an interactive sales heatmap.",
+  "description": "BaristA:i™, The Conversational Barista OS, with a liquid glass UI, built with React and Vite.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=./",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "date-fns": "^4.1.0",
-    "html2canvas": "^1.4.1",
-    "leaflet": "^1.9.4",
-    "react": "^19.2.0",
-    "react-day-picker": "^9.11.1",
-    "react-dom": "^19.2.0",
-    "react-leaflet": "^5.0.0",
-    "recharts": "^3.2.1",
-    "xlsx": "^0.18.5"
+    "@google/genai": "^0.14.0",
+    "lottie-react": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/html2canvas": "^1.0.0",
-    "@types/leaflet": "^1.9.12",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@types/xlsx": "^0.0.36",
-    "@vitejs/plugin-react": "^5.0.4",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "typescript": "^5.5.3",
-    "vite": "^7.1.10"
+    "vite": "^5.3.1"
   }
 }

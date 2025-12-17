@@ -1,5 +1,7 @@
 {
-  "name": "BaristA:i eyes",
-  "description": "BaristA:i Eyes: A dynamic, real-time monitoring system visualizing live order data from sources like Google Sheets for clients such as ALL café. It features key performance indicators, charts, and an interactive sales heatmap.",
-  "requestFramePermissions": []
+  "name": "ALL CAFÉ DIGITAL MENUs -  BaristA:i™ HUMAN LIKE",
+  "description": "BaristA:i™ v4.3, The Digital Menu OS for cafes, engineered by Cheewit Manketwit. Features multi-language support and a dynamic menu.",
+  "requestFramePermissions": [],
+  "prompt": "",
+  "_signature_": "BaristA:i_V4.3_CMK_METADATA_SIG"
 }

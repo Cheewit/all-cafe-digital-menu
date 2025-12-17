@@ -1,114 +1,170 @@
 
-import React, { useState, useEffect } from 'react';
-import { DateRange } from 'react-day-picker';
-import { format, isSameDay } from 'date-fns';
-import { ActiveFilter, Theme } from '../App';
-import { UserRole } from '../types';
-import ThemeSwitcher from './ThemeSwitcher';
-import LanguageSwitcher from './LanguageSwitcher';
-import { useLanguage } from '../contexts/LanguageContext';
+// © 2025 Cheewit Manketwit. All rights reserved. BaristA:i_V4.3_GLASS_CODE_SIG
+import React, { useState, useEffect, useRef, lazy, Suspense, useMemo } from 'react';
+import { useAppContext } from '../contexts/AppContext';
+import { LANGUAGES } from '../constants/languages';
+import { LanguageKey, Screen } from '../types';
 
-interface HeaderProps {
-    dateRange?: DateRange;
-    compareDateRange?: DateRange;
-    activeFilter: ActiveFilter;
-    onClearFilter: () => void;
-    userRole: UserRole;
-    client: string | null;
-    onLogout: () => void;
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
-}
+const HelpModal = lazy(() => import('./HelpModal'));
 
-const formatDateRange = (range?: DateRange, t?: any): string => {
-    if (!range?.from) return t ? t('allTime') : "All Time";
-    if (range.to && !isSameDay(range.from, range.to)) {
-        return `${format(range.from, 'd MMM yyyy')} - ${format(range.to, 'd MMM yyyy')}`;
-    }
-    return format(range.from, 'd MMM yyyy');
-}
+const Header: React.FC = () => {
+  const { selectedLanguage, updateLanguage, getTranslation, currentScreen, navigateTo, omniContext, isFestiveMode, clearCart } = useAppContext();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-const formatFilter = (filter: ActiveFilter, t: any): string => {
-    if (!filter) return '';
-    const typeLabel = filter.type.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-    return `${t('filter')}: ${typeLabel} - ${filter.value}`;
-}
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-const Header: React.FC<HeaderProps> = ({ dateRange, compareDateRange, activeFilter, onClearFilter, userRole, client, onLogout, theme, setTheme }) => {
-    const { t } = useLanguage();
-    const periodADisplay = formatDateRange(dateRange, t);
-    const periodBDisplay = formatDateRange(compareDateRange, t);
-    
-    const clientWelcomeMessage: { [key: string]: string } = {
-        'allcafe': `${t('welcome')}, ALL café Team`
+  const handleLanguageSelect = (langKey: LanguageKey) => {
+    updateLanguage(langKey);
+    setIsDropdownOpen(false);
+  };
+
+  const handleHomeClick = () => {
+    clearCart();
+    navigateTo(Screen.Welcome);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-    const welcomeMessage = client ? clientWelcomeMessage[client] : null;
-    const [isWelcomeVisible, setIsWelcomeVisible] = useState(!!welcomeMessage);
+  const greetingMessage = useMemo(() => {
+    if (isFestiveMode) {
+        // Static, elegant message for festive mode
+        return "Merry Christmas";
+    }
+    const timeOfDay = omniContext?.timeOfDay;
+    let key = 'greetingDefault';
+    switch (timeOfDay) {
+      case 'morning':
+        key = 'greetingMorning';
+        break;
+      case 'midday':
+        key = 'greetingMidday';
+        break;
+      case 'afternoon':
+        key = 'greetingAfternoon';
+        break;
+      case 'evening':
+        key = 'greetingEvening';
+        break;
+      case 'night':
+      case 'late-night':
+        key = 'greetingNight';
+        break;
+    }
+    return getTranslation(key);
+  }, [omniContext, getTranslation, isFestiveMode]);
 
-    useEffect(() => {
-        if (welcomeMessage) {
-            const timer = setTimeout(() => {
-                setIsWelcomeVisible(false);
-            }, 5000); // Message visible for 5 seconds
-            return () => clearTimeout(timer);
-        }
-    }, [welcomeMessage]);
 
-    return (
-        <header>
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-[color:var(--text-color-primary)]">
-                        BaristA:i Eyes
-                    </h1>
-                     {welcomeMessage && (
-                        <div className="overflow-hidden">
-                            <p className={`text-base font-semibold text-[color:var(--accent-color)] mt-2 transition-all duration-700 ease-out ${isWelcomeVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'}`}>
-                               {welcomeMessage}
-                            </p>
-                        </div>
-                    )}
-                    <p className="text-sm text-[color:var(--text-color-secondary)] mt-1 font-mono">
-                        // {t('liveFeed')} &middot; 
-                        {compareDateRange 
-                            ? ` ${t('comparing')} [${periodADisplay}] ${t('vs')} [${periodBDisplay}]`
-                            : ` ${t('showingDataFor')} ${periodADisplay}`
-                        }
-                    </p>
-                </div>
-                <div className="flex flex-col items-start sm:items-end gap-2 self-start">
-                     <div className="flex items-center gap-3">
-                        {/* Control Group: Theme, User, then Language (Rightmost) */}
-                        {userRole && (
-                             <div className="flex items-center gap-2">
-                                <span className={`text-xs font-mono px-2 py-0.5 rounded ${userRole === 'admin' ? 'bg-cyan-900/70 text-cyan-300' : 'bg-slate-700/70 text-slate-300'}`}>
-                                    {userRole.toUpperCase()}
-                                </span>
-                                <button onClick={onLogout} className="text-xs font-mono text-slate-400 hover:text-cyan-300 transition-colors">[{t('logout')}]</button>
-                             </div>
-                        )}
-                        {userRole === 'client' && <ThemeSwitcher theme={theme} setTheme={setTheme} />}
-                        <div className="ml-1 border-l border-slate-700 pl-2">
-                            <LanguageSwitcher />
-                        </div>
-                     </div>
-                    {activeFilter && (
-                        <div className="flex items-center gap-3 bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2">
-                             <span className="text-sm font-mono text-slate-300">{formatFilter(activeFilter, t)}</span>
-                             <button
-                                onClick={onClearFilter}
-                                className="text-xs font-mono text-cyan-400 hover:text-cyan-200 border border-cyan-400/50 rounded-full px-2 py-0.5 transition-colors whitespace-nowrap"
-                                aria-label="Clear filter"
-                            >
-                                &times; {t('clear')}
-                            </button>
-                        </div>
-                    )}
-                </div>
+  if (currentScreen === Screen.Welcome) {
+    return null; // No header on welcome screen
+  }
+
+  const currentLangInfo = LANGUAGES[selectedLanguage];
+
+  const logoSrc = isFestiveMode 
+    ? 'https://i.postimg.cc/ydk08yw2/chritmas-logo.png' 
+    : 'https://i.postimg.cc/TPr9kKyf/all-cafe-logo.png';
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 h-[60px] md:h-[70px] flex items-center justify-between px-4 z-50">
+        {/* Left Section: Logo */}
+        <div className="flex items-center relative">
+          {isFestiveMode && (
+            <div className="absolute -top-2 -left-1 pointer-events-none filter drop-shadow-sm opacity-80">
+               {/* Subtle festive decoration if needed */}
             </div>
-        </header>
-    );
+          )}
+          <img
+            src={logoSrc}
+            alt={getTranslation('cafeName')}
+            className="h-10 md:h-12 cursor-pointer"
+            onClick={handleHomeClick}
+          />
+        </div>
+
+        {/* Middle Section: Centered Text (Absolute Positioning) */}
+        {currentScreen === Screen.Menu && (
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+             {isFestiveMode ? (
+                 <span className="hidden sm:inline-block font-serif-festive text-[#C5A059] text-xl tracking-wide festive-text-gold font-bold italic">
+                    {greetingMessage}
+                 </span>
+             ) : (
+                <span className="hidden sm:inline-block text-xs italic px-2 py-1 rounded-md shadow-xs">
+                  {greetingMessage}
+                </span>
+             )}
+          </div>
+        )}
+        
+        {/* Right Section: Controls */}
+        <div className="flex items-center space-x-1 sm:space-x-2">
+          <button
+            onClick={handleHomeClick}
+            className="p-2 rounded-full transition-colors"
+            aria-label={getTranslation('home')}
+            title={getTranslation('home')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </button>
+           <button
+            onClick={() => setIsHelpModalOpen(true)}
+            className="p-2 rounded-full transition-colors"
+            aria-label={getTranslation('helpButtonLabel')}
+            title={getTranslation('helpButtonLabel')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center py-2 px-3 rounded-full transition-colors"
+              aria-haspopup="true"
+              aria-expanded={isDropdownOpen}
+            >
+              <span className="mr-2 text-lg">{currentLangInfo.flag}</span>
+              <span className="text-sm hidden sm:inline">{currentLangInfo.name}</span>
+              <span className="ml-1 text-xs">▼</span>
+            </button>
+            
+            {isDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-auto min-w-[150px] overflow-hidden z-[100] glass-panel p-1">
+                {Object.entries(LANGUAGES).map(([key, lang]) => (
+                  <button
+                    key={key}
+                    onClick={() => handleLanguageSelect(key as LanguageKey)}
+                    className={`flex items-center w-full px-3 py-2 text-sm text-left transition-colors rounded-lg ${selectedLanguage === key ? 'bg-black/10' : 'hover:bg-black/5'}`}
+                  >
+                    <span className="mr-3 text-lg">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+      <Suspense fallback={null}>
+        {isHelpModalOpen && <HelpModal isOpen={isHelpModalOpen} onClose={() => setIsHelpModalOpen(false)} />}
+      </Suspense>
+    </>
+  );
 };
 
 export default Header;

@@ -64,6 +64,7 @@ const appendProductData = (fd: FormData, item: CartItem, group: ProductGroup, ge
   const v = item.variant as Product;
   const noneTxt = getTrans('none');
   
+  fd.append('Brand', group.brand || v.Brand || '');
   fd.append('Category', group.category || '');
   fd.append('Product_Code', v.Product_Code ? `'${v.Product_Code}'` : '');
   fd.append('Uniqcode', v.Uniqcode || '');
